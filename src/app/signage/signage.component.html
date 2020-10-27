@@ -1,0 +1,28 @@
+<div class="form-group">
+  <label for="signageAlias">Pick a Signage to Activate: </label>
+  <select name="signageAlias" id="signageAlias" class="form-control" (change)="onSignageSelected($event)">
+    <option>Pick a Signage..</option>
+    <option *ngFor="let signage of signages.getAll()" [value]="signage.id">
+      {{signage.alias}}
+    </option>
+  </select>
+</div>
+
+
+<div *ngIf="selectedSignage != undefined">
+  <h2>{{ selectedSignage.alias }}</h2>
+
+  <br><br>
+  <div>
+    <h1 *ngFor="let terminal of getTerminalsForSelectedSignage()">
+      {{ terminal.alias }} <span *ngIf="terminal.calledTicketNumber != undefined">- {{ terminal.calledTicketNumber }}</span>
+    </h1>
+  </div>
+
+  <br><br>
+
+  <div>
+    <p *ngFor="let terminal of getTerminalsForSelectedSignage()">
+      {{ terminal.alias }} - {{ getStatusText(terminal.status) }} <br>
+    </p>
+  </div>
